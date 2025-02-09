@@ -1,0 +1,7 @@
+,Age,Sex,ChestPainType,RestingBloodPressure,Cholesterol,FastingBloodSugar,RestingECG,MaxHeartRate,ExerciseInducedAngina,OldPeak,PeakExerciseSTSegmentSlope,NumberOfVesselsColored,ThalassemiaStatus,heartdiseaseStatus
+1,55,Male,AtypicalAngina,140.0,0,,,150.0,,0.2,,,,healthy
+7,72,Male,Non-AnginalPain,160.0,0,,,114.0,,1.6,,2.0,,healthy
+36,65,Male,Asymptomatic,155.0,0,,,154.0,,1.0,,,,healthy
+58,38,Male,Non-AnginalPain,100.0,0,,,179.0,,-1.1,,,,healthy
+65,45,Male,Non-AnginalPain,110.0,0,,,138.0,,-0.1,,,,healthy
+82,53,Male,AtypicalAngina,130.0,0,,,120.0,,0.7,,,,healthy

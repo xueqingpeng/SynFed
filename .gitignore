@@ -1,0 +1,28 @@
+# Bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+env/
+venv/
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Log and temporary files
+*.log
+*.pot
+
+# Build artifacts and distributions
+dist/
+build/
+*.egg-info/
+*.egg
+
+# IDE-specific files
+.vscode/
+.idea/
+
+*checkpoints

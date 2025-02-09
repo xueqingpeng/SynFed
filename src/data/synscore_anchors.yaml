@@ -1,0 +1,20 @@
+# Directories
+raw_dataset_dir: datasets
+anchor_dataset_dir: score_anchors
+
+
+datasets_config:
+# - lendingclub:
+#     num_clusters: 10
+# - travel:
+#     num_clusters: 10
+# - german:
+#     num_clusters: 10
+# - cleveland:
+#     num_clusters: 10
+# - hungarian:
+#     num_clusters: 10
+- switzerland:
+    num_clusters: 10
+- va:
+    num_clusters: 10

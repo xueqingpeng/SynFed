@@ -1,0 +1,78 @@
+
+datasets:
+  abalone:
+    vllm_model: "/data/wangyuxin/rayzhang/synllm/syn_checkpoints/llama32-1b-sft_syn_abalone"
+    prompt_data: "/data/wangyuxin/rayzhang/synllm/syn_datasets/sft_syn_abalone"
+    anchor_data: "/data/wangyuxin/rayzhang/synllm/score_anchors/abalone_anchors.csv"
+    train_data: "/data/wangyuxin/rayzhang/synllm/datasets/abalone/raw/abalone_train.csv"
+  adult:
+    vllm_model: "/data/wangyuxin/rayzhang/synllm/syn_checkpoints/llama32-1b-sft_syn_adult"
+    prompt_data: "/data/wangyuxin/rayzhang/synllm/syn_datasets/sft_syn_adult"
+    anchor_data: "/data/wangyuxin/rayzhang/synllm/score_anchors/adult_anchors.csv"
+    train_data: "/data/wangyuxin/rayzhang/synllm/datasets/adult/raw/adult_train.csv"
+  buddy:
+    vllm_model: "/data/wangyuxin/rayzhang/synllm/syn_checkpoints/llama32-1b-sft_syn_buddy"
+    prompt_data: "/data/wangyuxin/rayzhang/synllm/syn_datasets/sft_syn_buddy"
+    anchor_data: "/data/wangyuxin/rayzhang/synllm/score_anchors/buddy_anchors.csv"
+    train_data: "/data/wangyuxin/rayzhang/synllm/datasets/buddy/raw/buddy_train.csv"
+  california:
+    vllm_model: "/data/wangyuxin/rayzhang/synllm/syn_checkpoints/llama32-1b-sft_syn_california"
+    prompt_data: "/data/wangyuxin/rayzhang/synllm/syn_datasets/sft_syn_california"
+    anchor_data: "/data/wangyuxin/rayzhang/synllm/score_anchors/california_anchors.csv"
+    train_data: "/data/wangyuxin/rayzhang/synllm/datasets/california/raw/california_train.csv"
+  diabetes:
+    vllm_model: "/data/wangyuxin/rayzhang/synllm/syn_checkpoints/llama32-1b-sft_syn_diabetes"
+    prompt_data: "/data/wangyuxin/rayzhang/synllm/syn_datasets/sft_syn_diabetes"
+    anchor_data: "/data/wangyuxin/rayzhang/synllm/score_anchors/diabetes_anchors.csv"
+    train_data: "/data/wangyuxin/rayzhang/synllm/datasets/diabetes/raw/diabetes_train.csv"
+  insurance:
+    vllm_model: "/data/wangyuxin/rayzhang/synllm/syn_checkpoints/llama32-1b-sft_syn_insurance"
+    prompt_data: "/data/wangyuxin/rayzhang/synllm/syn_datasets/sft_syn_insurance"
+    anchor_data: "/data/wangyuxin/rayzhang/synllm/score_anchors/insurance_anchors.csv"
+    train_data: "/data/wangyuxin/rayzhang/synllm/datasets/insurance/raw/insurance_train.csv"
+
+
+syn_config:
+  vllm_params:
+    model: "/home/ray/MODELS/meta-llama--Llama-3.2-1B-Instruct"
+    tensor_parallel_size: 1
+    trust_remote_code: true
+    dtype: "bfloat16"
+    max_model_len: 2048
+    enable_chunked_prefill: true
+    seed: 42
+    max_num_seqs: 8
+    enable_prefix_caching: false
+    enforce_eager: true
+
+  sampling_params:
+    max_tokens: 128
+    top_p: 0.7
+    temperature: 0.5
+    repetition_penalty: 1.05
+    skip_special_tokens: false
+    truncate_prompt_tokens: 1024
+    include_stop_str_in_output: false
+
+downstream_config:
+  vllm_params:
+    model: ""
+    tensor_parallel_size: 1
+    trust_remote_code: true
+    dtype: "bfloat16"
+    max_model_len: 1024
+    enable_chunked_prefill: true
+    seed: 42
+    max_num_seqs: 8
+    enable_prefix_caching: false
+    enforce_eager: true
+
+  sampling_params:
+    max_tokens: 16
+    top_p: 0.7
+    temperature: 0.5
+    repetition_penalty: 1.05
+    skip_special_tokens: false
+    truncate_prompt_tokens: 1024
+    include_stop_str_in_output: false
+

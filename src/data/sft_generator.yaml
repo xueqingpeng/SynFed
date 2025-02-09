@@ -1,0 +1,21 @@
+# config.yaml
+
+# Directories
+raw_dataset_dir: datasets
+sft_dataset_dir: sft_dataset
+
+# List of dataset names
+source_datasets:
+  - cleveland
+  - hungarian
+  - switzerland
+  - va
+  - va_healthy
+  - switzerland_healthy
+
+
+target_datasets:
+  - va
+
+n_sim: 4
+n_unsim: 1

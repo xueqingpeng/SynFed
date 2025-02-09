@@ -1,0 +1,79 @@
+debug: true
+output_dir: syned_datasets/syn1_raw
+ds_name: adult  # Specify the dataset to process here
+num_repeat: 5
+
+datasets:
+
+  german:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_german"
+    anchor_data: "score_anchors/german_anchors.csv"
+    train_data: "datasets/german/raw/german_train.csv"
+  lendingclub:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_lendingclub"
+    anchor_data: "score_anchors/lendingclub_anchors.csv"
+    train_data: "datasets/lendingclub/raw/lendingclub_train.csv"
+  travel:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_travel"
+    anchor_data: "score_anchors/travel_anchors.csv"
+    train_data: "datasets/travel/raw/travel_train.csv"
+  cleveland:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_cleveland"
+    anchor_data: "score_anchors/cleveland_anchors.csv"
+    train_data: "datasets/cleveland/raw/cleveland_train.csv"
+  hungarian:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_hungarian"
+    anchor_data: "score_anchors/hungarian_anchors.csv"
+    train_data: "datasets/hungarian/raw/hungarian_train.csv"
+  switzerland:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_switzerland"
+    anchor_data: "score_anchors/switzerland_anchors.csv"
+    train_data: "datasets/switzerland/raw/switzerland_train.csv"
+  va:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_va"
+    anchor_data: "score_anchors/va_anchors.csv"
+    train_data: "datasets/va/raw/va_train.csv"
+  switzerland_healthy:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_switzerland_healthy"
+    anchor_data: "score_anchors/switzerland_anchors.csv"
+    train_data: "datasets/switzerland/raw/switzerland_train.csv"
+  va_healthy:
+    syn_model: "syn_checkpoints/llama32-3b-sft_syn_diabetes"
+    prompt_data: "syn_datasets/sft_syn_va_healthy"
+    anchor_data: "score_anchors/va_anchors.csv"
+    train_data: "datasets/va/raw/va_train.csv"
+
+
+
+syn_config:
+  vllm_params:
+    model: ""
+    tensor_parallel_size: 4
+    trust_remote_code: true
+    dtype: "bfloat16"
+    max_model_len: 3072
+    enable_chunked_prefill: false
+    seed: 42
+    max_num_batched_tokens: 3072
+    enable_prefix_caching: false
+    enforce_eager: false
+    gpu_memory_utilization: 0.95
+
+  sampling_params:
+    max_tokens: 768
+    # top_p: 0.7
+    top_p: 0.9
+    # temperature: 0.5
+    temperature: 0.8
+    repetition_penalty: 1.05
+    skip_special_tokens: false
+    truncate_prompt_tokens: 2304
+    include_stop_str_in_output: false
