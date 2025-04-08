@@ -10,10 +10,10 @@ datasets_config:
 #     num_clusters: 10
 # - german:
 #     num_clusters: 10
-# - cleveland:
-#     num_clusters: 10
-# - hungarian:
-#     num_clusters: 10
+- cleveland:
+    num_clusters: 10
+- hungarian:
+    num_clusters: 10
 - switzerland:
     num_clusters: 10
 - va:

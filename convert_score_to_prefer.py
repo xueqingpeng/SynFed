@@ -1,5 +1,7 @@
 import os
 import argparse
+import re
+import json
 import pandas as pd
 import jsonlines
 from itertools import combinations
@@ -7,8 +9,20 @@ from datasets import Dataset
 
 def load_jsonl_to_dataframe(input_file):
     """Load a JSONL file into a Pandas DataFrame."""
-    with jsonlines.open(input_file) as reader:
-        data = list(reader)
+    # with jsonlines.open(input_file) as reader:
+    #     data = list(reader)
+    
+    data = []
+    with open(input_file, 'r', encoding='utf-8') as f:
+        for line in f:
+            cleaned_line = re.sub(r'\bNaN\b', 'null', line)
+            try:
+                obj = json.loads(cleaned_line)
+                data.append(obj)
+            except json.JSONDecodeError as e:
+                print("Error line: ", cleaned_line)
+                raise e
+            
     df = pd.DataFrame(data)
     
     # Fill NaN values for necessary columns

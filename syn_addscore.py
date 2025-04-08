@@ -216,7 +216,7 @@ if __name__ == "__main__":
     # Define the VLLM client configuration
     client_config = OmegaConf.create({
         'vllm_params': {
-            'model': "eval_checkpoints/llama3.2-3BI-original-lora-merged",
+            'model': "TheFinAI/fl-dare_linear-1-merged-base",
             'tensor_parallel_size': 4,
             'trust_remote_code': True,
             'dtype': "bfloat16",
