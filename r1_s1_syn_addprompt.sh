@@ -1,6 +1,7 @@
 #!/bin/bash
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 export NCCL_P2P_DISABLE=1
+export HYDRA_FULL_ERROR=1
 # List of datasets to process
 # datasets=("german" "adult" "diabetes" )
 # datasets=("lendingclub" "travel" "german" "cleveland" "hungarian" "switzerland" "va")
