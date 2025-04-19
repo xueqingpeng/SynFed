@@ -8,12 +8,12 @@ mkdir -p "$output_base_dir"
 
 # Dataset configurations (dataset name and number of clients)
 declare -A datasets_config=(
-    ["va"]=1
+    # ["va"]=1
     ["cleveland"]=1
     ["hungarian"]=1
     ["switzerland"]=1
-    ["switzerland_healthy"]=1
-    ["va_healthy"]=1
+    # ["switzerland_healthy"]=1
+    # ["va_healthy"]=1
     # ["german"]=1
     # ["lendingclub"]=1
     # ["travel"]=1

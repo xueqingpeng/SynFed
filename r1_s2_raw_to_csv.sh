@@ -7,12 +7,12 @@ round="syn1"
 # datasets=("diabetes" "adult" "german")
 # datasets=("lendingclub" "travel" "german" "cleveland" "hungarian" "switzerland" "va")
 # datasets=("cleveland" "hungarian" "switzerland" "va" "switzerland_healthy" "va_healthy")
-datasets=("cleveland" "hungarian" "switzerland" "va" "switzerland_healthy" "va_healthy")
+datasets=("cleveland" "hungarian" "switzerland")
 
 # Iterate over datasets and process each one
 for dataset in "${datasets[@]}"; do
     # Define input and output paths dynamically
-    input_file="syned_datasets/${round}_raw/${dataset}.raw.jsonl"
+    input_file="syned_datasets/${round}_raw_balanced/${dataset}_balanced.jsonl"
     output_file="syned_datasets/${round}_csv/${dataset}.train.csv"
 
     mkdir -p syned_datasets/${round}_csv
