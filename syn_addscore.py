@@ -210,14 +210,16 @@ if __name__ == "__main__":
     parser.add_argument("--ds_names", nargs="+", required=True, help="List of dataset names to process")
     parser.add_argument("--input_path", type=str, default="syned_datasets/syn1_raw", help="Input directory path")
     parser.add_argument("--output_path", type=str, default="syned_datasets/syn1_score", help="Output directory path")
+    parser.add_argument("--model", type=str, default="TheFinAI/fl-dare_linear-1-merged-base", help="model")
+    parser.add_argument("--tensor_parallel_size", type=int, default=2, help="tensor_parallel_size")
 
     args = parser.parse_args()
 
     # Define the VLLM client configuration
     client_config = OmegaConf.create({
         'vllm_params': {
-            'model': "TheFinAI/fl-dare_linear-1-merged-base",
-            'tensor_parallel_size': 4,
+            'model': args.model,
+            'tensor_parallel_size': args.tensor_parallel_size,
             'trust_remote_code': True,
             'dtype': "bfloat16",
             'max_model_len': 4096,

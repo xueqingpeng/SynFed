@@ -14,12 +14,12 @@ from src.utils import (generate_uuid, mask_safe_json_serializable,
 logger = get_logger(__name__)
 
 
-def synthesize_data(cfg, syn_client, prompt_data):
+def synthesize_data(cfg, syn_client, prompt_data, num_repeat):
     """Generates synthetic data for the prompt dataset."""
     results = []
     prompts = []
     
-    num_repeat = cfg.num_repeat
+    # num_repeat = cfg.num_repeat
     
     for i, data in enumerate(prompt_data):
         syn_pmt_id = generate_uuid()
@@ -71,6 +71,8 @@ def main(cfg: DictConfig):
     prompt_data = load_from_disk(ds_config.prompt_data)['test']
     anchor_data = schema.format_load_csv(ds_config.anchor_data)
     train_data = schema.format_load_csv(ds_config.train_data)
+    
+    num_repeat = ds_config.num_repeat
 
     syn_config = cfg.syn_config
     syn_config.vllm_params.model = ds_config.syn_model
@@ -78,7 +80,7 @@ def main(cfg: DictConfig):
     # 1. Generate synthetic data
     logger.info("+" * 30 + "  Generating synthetic data...")
     with SynClient(syn_config, schema) as syn_client:
-        results = synthesize_data(cfg, syn_client, prompt_data)
+        results = synthesize_data(cfg, syn_client, prompt_data, num_repeat)
 
 
     # Find Unsimilar prompt data for scoring
@@ -100,5 +102,4 @@ def main(cfg: DictConfig):
 
 
 if __name__ == "__main__":
-    os.environ["VLLM_WORKER_MULTIPROC_METHOD"] = "spawn"
     main()
