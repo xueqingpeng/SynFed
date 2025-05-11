@@ -3,6 +3,7 @@ syn_datasets/
 score_anchors/
 syned_datasets/
 outputs/
+*.save/
 
 # Environments
 .env
