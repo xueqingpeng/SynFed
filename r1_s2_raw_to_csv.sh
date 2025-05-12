@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the round variable
-round="syn1"
+round="syn2"
 
 # List of datasets
 # datasets=("diabetes" "adult" "german")

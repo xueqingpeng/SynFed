@@ -1,5 +1,5 @@
 debug: true
-output_dir: syned_datasets/syn1_raw
+output_dir: syned_datasets/syn2_raw
 ds_name: adult  # Specify the dataset to process here
 # num_repeat: 20
 
@@ -21,34 +21,34 @@ datasets:
     anchor_data: "score_anchors/travel_anchors.csv"
     train_data: "datasets/travel/raw/travel_train.csv"
   cleveland:
-    syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
+    syn_model: "TheFinAI/fl-cleveland-dpo-qlora"
     prompt_data: "syn_datasets/sft_syn_cleveland"
     anchor_data: "score_anchors/cleveland_anchors.csv"
     train_data: "datasets/cleveland/raw/cleveland_train.csv"
     num_repeat: 40
   hungarian:
-    syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
+    syn_model: "TheFinAI/fl-hungarian-dpo-qlora"
     prompt_data: "syn_datasets/sft_syn_hungarian"
     anchor_data: "score_anchors/hungarian_anchors.csv"
     train_data: "datasets/hungarian/raw/hungarian_train.csv"
     num_repeat: 40
   switzerland:
-    syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
+    syn_model: "TheFinAI/fl-switzerland-dpo-qlora-c"
     prompt_data: "syn_datasets/sft_syn_switzerland"
     anchor_data: "score_anchors/switzerland_anchors.csv"
     train_data: "datasets/switzerland/raw/switzerland_train.csv"
-    num_repeat: 40
+    num_repeat: 400
   va:
     syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
     prompt_data: "syn_datasets/sft_syn_va"
     anchor_data: "score_anchors/va_anchors.csv"
     train_data: "datasets/va/raw/va_train.csv"
   switzerland_healthy:
-    syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
+    syn_model: "TheFinAI/fl-switzerland-dpo-qlora-c"
     prompt_data: "syn_datasets/sft_syn_switzerland_healthy"
     anchor_data: "score_anchors/switzerland_anchors.csv"
     train_data: "datasets/switzerland/raw/switzerland_train.csv"
-    num_repeat: 500
+    num_repeat: 5000
   va_healthy:
     syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
     prompt_data: "syn_datasets/sft_syn_va_healthy"

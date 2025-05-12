@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Directories
-input_base_dir="syned_datasets/syn1_csv"
-output_base_dir="syned_datasets/syn1_sft_fed"
+input_base_dir="syned_datasets/syn2_csv"
+output_base_dir="syned_datasets/syn2_sft_fed"
 
 mkdir -p "$output_base_dir"
 

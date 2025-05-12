@@ -24,5 +24,5 @@ python syn_addscore.py \
     --ds_names $ds_names_str \
     --input_path "$input_path" \
     --output_path "$output_path" \
-    --model "TheFinAI/fl-dare_linear-1-merged-base" \
+    --model "ShawnXiaoyuWang/FedMerged-5-5-2025" \
     --tensor_parallel_size 2

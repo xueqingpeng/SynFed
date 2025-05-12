@@ -10,8 +10,8 @@ dataset_files = {
     'switzerland': ["switzerland.raw.jsonl", "switzerland_healthy.raw.jsonl"]
 }
 
-base_path = Path("./syned_datasets/syn1_raw")
-output_path = Path("./syned_datasets/syn1_raw_balanced")
+base_path = Path("./syned_datasets/syn2_raw")
+output_path = Path("./syned_datasets/syn2_raw_balanced")
 output_path.mkdir(parents=True, exist_ok=True)
 
 
