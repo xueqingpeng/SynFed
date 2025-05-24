@@ -33,13 +33,13 @@ class ExtractAnswer:
     def class_extract(self, text):
         # Extract all keys (choices) from the inverse_target_map
         choices = self.schema.inverse_target_map.keys()
-        # Get the first line of the text
-        first_line = text.split("\n")[0].strip()
+        # # Get the first line of the text
+        # first_line = text.split("\n")[0].strip()
 
-        # Create a regex pattern to match any of the choices in the first line (case-insensitive)
+        # Create a regex pattern to match any of the choices (case-insensitive)
         pattern = r'\b(' + '|'.join(map(re.escape, choices)) + r')\b'
-        # Find all matches in the first line, ignoring case
-        matches = re.findall(pattern, first_line, re.IGNORECASE)
+        # Find all matches, ignoring case
+        matches = re.findall(pattern, text.strip(), re.IGNORECASE)
         if len(matches) == 1:
             matched_val = matches[0]
             for choice in choices:
