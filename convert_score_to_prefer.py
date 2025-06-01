@@ -127,8 +127,8 @@ def main(input_path, output_path, ds_names):
         df = load_jsonl_to_dataframe(input_file)
         prefer_df = generate_preference_dataset(df)
 
-        # sample 10000 rows
-        prefer_df = prefer_df.sample(n=10000, random_state=42)
+        # sample 1000 rows
+        prefer_df = prefer_df.sample(n=1000, random_state=42)
 
         save_dataset(prefer_df, output_ds_dir)
         
