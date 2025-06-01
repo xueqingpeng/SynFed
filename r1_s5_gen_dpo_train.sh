@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Define the round variable
+round="syn1"
+
 # Define input and output paths
-input_path="syned_datasets/syn1_score"
-output_path="syned_datasets/syn1_dpo"
+input_path="syned_datasets/${round}_score"
+output_path="syned_datasets/${round}_dpo"
 
 # Define dataset names (modify as needed)
 # ds_names=("cleveland" "hungarian" "switzerland" "va" "switzerland_healthy" "va_healthy")

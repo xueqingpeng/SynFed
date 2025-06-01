@@ -4,14 +4,17 @@ from pathlib import Path
 from collections import Counter
 
 
+# Define the round variable
+round="syn2"
+
 dataset_files = {
     'cleveland': ["cleveland.raw.jsonl"],
     'hungarian': ["hungarian.raw.jsonl"],
     'switzerland': ["switzerland.raw.jsonl", "switzerland_healthy.raw.jsonl"]
 }
 
-base_path = Path("./syned_datasets/syn2_raw")
-output_path = Path("./syned_datasets/syn2_raw_balanced")
+base_path = Path(f"./syned_datasets/{round}_raw")
+output_path = Path(f"./syned_datasets/{round}_raw_balanced")
 output_path.mkdir(parents=True, exist_ok=True)
 
 

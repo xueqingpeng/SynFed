@@ -33,7 +33,7 @@ datasets:
     train_data: "datasets/hungarian/raw/hungarian_train.csv"
     num_repeat: 40
   switzerland:
-    syn_model: "TheFinAI/fl-switzerland-dpo-qlora-c"
+    syn_model: "TheFinAI/fl-switzerland-dpo-qlora"
     prompt_data: "syn_datasets/sft_syn_switzerland"
     anchor_data: "score_anchors/switzerland_anchors.csv"
     train_data: "datasets/switzerland/raw/switzerland_train.csv"
@@ -44,7 +44,7 @@ datasets:
     anchor_data: "score_anchors/va_anchors.csv"
     train_data: "datasets/va/raw/va_train.csv"
   switzerland_healthy:
-    syn_model: "TheFinAI/fl-switzerland-dpo-qlora-c"
+    syn_model: "TheFinAI/fl-switzerland-dpo-qlora"
     prompt_data: "syn_datasets/sft_syn_switzerland_healthy"
     anchor_data: "score_anchors/switzerland_anchors.csv"
     train_data: "datasets/switzerland/raw/switzerland_train.csv"

@@ -1,8 +1,11 @@
 #!/bin/bash
 
+# Define the round variable
+round="syn2"
+
 # Directories
-input_base_dir="syned_datasets/syn2_csv"
-output_base_dir="syned_datasets/syn2_sft_fed"
+input_base_dir="syned_datasets/${round}_csv"
+output_base_dir="syned_datasets/${round}_sft_fed"
 
 mkdir -p "$output_base_dir"
 
