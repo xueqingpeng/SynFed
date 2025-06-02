@@ -37,7 +37,7 @@ datasets:
     prompt_data: "syn_datasets/sft_syn_switzerland"
     anchor_data: "score_anchors/switzerland_anchors.csv"
     train_data: "datasets/switzerland/raw/switzerland_train.csv"
-    num_repeat: 400
+    num_repeat: 40
   va:
     syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
     prompt_data: "syn_datasets/sft_syn_va"
@@ -48,7 +48,7 @@ datasets:
     prompt_data: "syn_datasets/sft_syn_switzerland_healthy"
     anchor_data: "score_anchors/switzerland_anchors.csv"
     train_data: "datasets/switzerland/raw/switzerland_train.csv"
-    num_repeat: 5000
+    num_repeat: 500
   va_healthy:
     syn_model: "wendy416/llama32-3b-sft_syn_diabetes"
     prompt_data: "syn_datasets/sft_syn_va_healthy"

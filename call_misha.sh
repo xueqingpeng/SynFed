@@ -32,13 +32,19 @@ source .env
 echo "HF_USERNAME: $HF_USERNAME"
 echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
 
+# Set environment variables
+export CUDA_VISIBLE_DEVICES="0,1"
+export VLLM_WORKER_MULTIPROC_METHOD="spawn"
+export NCCL_P2P_DISABLE="1"
+export N_CUDA="2"
+
 # bash r0_s1_gen_synsft.sh
 # bash r0_s3_gen_scoreanchors.sh
 
-bash r1_s1_syn_addprompt.sh
-python r1_s1.5_balance.py
-bash r1_s2_raw_to_csv.sh
-bash r1_s3_gen_sftfed_train.sh
+# bash r1_s1_syn_addprompt.sh
+# python r1_s1.5_balance.py
+# bash r1_s2_raw_to_csv.sh
+# bash r1_s3_gen_sftfed_train.sh
 
-# bash r1_s4_addreward.sh
-# bash r1_s5_gen_dpo_train.sh
+bash r1_s4_addreward.sh
+bash r1_s5_gen_dpo_train.sh

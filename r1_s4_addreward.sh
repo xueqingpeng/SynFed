@@ -1,13 +1,5 @@
 #!/bin/bash
 
-source .env
-echo "HF_TOKEN: $HF_TOKEN" | cut -c1-20
-
-# Set environment variables
-export CUDA_VISIBLE_DEVICES="0,1"
-export VLLM_WORKER_MULTIPROC_METHOD="spawn"
-export NCCL_P2P_DISABLE="1"
-
 # Define the round variable
 round="syn1"
 
@@ -27,5 +19,5 @@ python syn_addscore.py \
     --ds_names $ds_names_str \
     --input_path "$input_path" \
     --output_path "$output_path" \
-    --model "ShawnXiaoyuWang/FedMerged-5-5-2025" \
-    --tensor_parallel_size 2
+    --model "TheFinAI/fl-magnitude_prune-1-sft-merged-base-62" \
+    --tensor_parallel_size "$N_CUDA"
