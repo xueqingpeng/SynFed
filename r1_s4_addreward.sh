@@ -8,7 +8,7 @@ round="syn1"
 ds_names=("cleveland" "hungarian" "switzerland")
 
 # Define input and output paths
-input_path="syned_datasets/${round}_raw_balanced"
+input_path="syned_datasets/${round}_raw_balanced_reanchors"
 output_path="syned_datasets/${round}_score"
 
 # Convert ds_names array into a space-separated string
