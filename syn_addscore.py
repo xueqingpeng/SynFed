@@ -175,7 +175,7 @@ def main(ds_names, input_path, output_path, client):
     os.makedirs(output_path, exist_ok=True)
 
     for ds_name in ds_names:
-        input_file = os.path.join(input_path, f"{ds_name}_balanced.jsonl")
+        input_file = os.path.join(input_path, f"{ds_name}_reanchors.jsonl")
         output_file = os.path.join(output_path, f"{ds_name}.score.jsonl")
 
         if not os.path.exists(input_file):
