@@ -24,9 +24,7 @@ echo SLURM_NODES are $(echo ${SLURM_NODELIST})
 echo '-------------------------------------------------'
 echo -e '\n\n'
 
-export HF_HOME='/gpfs/radev/home/xp83/project/hf_cache'
-export HF_MODELS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_models'
-export HF_DATASETS_CACHE='/gpfs/radev/home/xp83/project/hf_cache/saved_datasets'
+export HF_HOME=/gpfs/radev/scratch/xu_hua/shared/hf_models
 
 source .env
 echo "HF_USERNAME: $HF_USERNAME"
@@ -46,5 +44,5 @@ export N_CUDA="2"
 # bash r1_s2_raw_to_csv.sh
 # bash r1_s3_gen_sftfed_train.sh
 
-bash r1_s4_addreward.sh
-bash r1_s5_gen_dpo_train.sh
+# bash r1_s4_addreward.sh
+# bash r1_s5_gen_dpo_train.sh
