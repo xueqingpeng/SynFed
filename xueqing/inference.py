@@ -1,0 +1,110 @@
+import json
+import torch
+from tqdm import tqdm
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+from sklearn.metrics import matthews_corrcoef
+from datasets import load_dataset
+
+
+def load_model(model_name):
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        device_map="balanced",  # Automatically balance across available devices
+        torch_dtype=torch.bfloat16,  # 或使用 float16/float32，视你的硬件而定
+        trust_remote_code=True
+    )
+
+    pipe = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="balanced")
+    return pipe
+
+
+def run_evaluation(data, prompt_key, gold_key, pipe):
+    results = []
+    for item in tqdm(data, desc="Running evaluation"):
+        prompt = item[prompt_key]
+        gold = item[gold_key]
+
+        output = pipe(prompt, max_new_tokens=128, do_sample=False)[0]["generated_text"]
+        generated = output[len(prompt):].strip()
+
+        results.append({
+            "prompt": prompt,
+            "gold": gold,
+            "generated": generated,
+            "pred": "unhealthy" if "unhealthy" in generated else "healthy"
+        })
+    return results
+
+
+def calculate_mcc(results):
+    label_map = {
+        "unhealthy": 0,
+        "healthy": 1
+    }
+
+    y_true = []
+    y_pred = []
+    for r in results:
+        true = r["gold"].strip().lower()
+        pred = r["pred"].strip().lower()
+
+        if true in label_map and pred in label_map:
+            y_true.append(label_map[true])
+            y_pred.append(label_map[pred])
+
+    mcc = matthews_corrcoef(y_true, y_pred)
+    return mcc
+
+
+model_names = [
+    # "TheFinAI/fl-cleveland-sft-1-adapter",
+    # "TheFinAI/fl-hungarian-sft-1-adapter",
+    # "TheFinAI/fl-switzerland-sft-1-adapter",
+    "TheFinAI/fl-magnitude_prune-1-sft-merged-base-62",
+    # "TheFinAI/fl-dare_linear-1-sft-merged-base-62",
+    # "TheFinAI/fl-hungarian-sft-2-adapter",
+    # "TheFinAI/fl-switzerland-sft-2-adapter"
+]
+mccs = []
+for model_name in model_names:
+    pipe = load_model(model_name)
+
+    # Load the Switzerland train dataset
+    switzerland_dataset = load_dataset("TheFinAI/MED_SYN0_SWITZERLAND_test")
+    train_data = switzerland_dataset["train"]
+
+    # Evaluate on Switzerland train data
+    results_switzerland = run_evaluation(train_data, prompt_key="query", gold_key="answer", pipe=pipe)
+    with open("results_switzerland.json", "w") as f:
+        json.dump(results_switzerland, f)
+    mcc_switzerland = calculate_mcc(results_switzerland)
+    print(f"MCC for Switzerland test: {mcc_switzerland:.4f}")
+    
+
+    # anchors
+
+    # zero_shot_results = {}
+    # few_shot_results = {}
+    # model_results = {
+    #     model_name: {
+    #         "zero-shot": zero_shot_results,
+    #         "few-shot": few_shot_results
+    #     }
+    # }
+    # mccs.append(model_results)
+
+    # for data_name in data_names:
+    #     data = test_zero_shot_all[data_name]
+    #     mcc_zero_shot = calculate_mcc(run_evaluation(data, prompt_key="question", gold_key="gold", pipe))
+    #     print(f"MCC for {data_name} zero-shot: {mcc_zero_shot:.4f}")
+    #     zero_shot_results[data_name] = mcc_zero_shot
+
+    # for data_name in data_names:
+    #     data = test_few_shot_all[data_name]
+    #     mcc_few_shot = calculate_mcc(run_evaluation(data, prompt_key="question", gold_key="gold", pipe))
+    #     print(f"MCC for {data_name} few-shot: {mcc_few_shot:.4f}")
+    #     few_shot_results[data_name] = mcc_few_shot
+
+# with open("mccs.json", "w") as f:
+#     json.dump(mccs, f)
