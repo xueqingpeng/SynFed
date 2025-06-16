@@ -7,7 +7,11 @@ round="syn2"
 # datasets=("diabetes" "adult" "german")
 # datasets=("lendingclub" "travel" "german" "cleveland" "hungarian" "switzerland" "va")
 # datasets=("cleveland" "hungarian" "switzerland" "va" "switzerland_healthy" "va_healthy")
-datasets=("cleveland" "hungarian" "switzerland")
+datasets=(
+    "cleveland" 
+    "hungarian" 
+    "switzerland"
+)
 
 # Iterate over datasets and process each one
 for dataset in "${datasets[@]}"; do

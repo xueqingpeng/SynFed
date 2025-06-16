@@ -1,8 +1,8 @@
-# %%
 import os
 import json
 import random
 import re
+
 
 def get_reanchors(results_fp: str) -> list[dict]:
     with open(results_fp, "r") as f:
@@ -65,8 +65,8 @@ def reanchor_data(data_name: str):
 
 os.makedirs("/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced_reanchors", exist_ok=True)
 data_names = [
-    # "cleveland", 
-    # "hungarian", 
+    "cleveland", 
+    "hungarian", 
     "switzerland"
 ]
 for data_name in data_names:
@@ -82,19 +82,19 @@ for data_name in data_names:
 
 
 
-# %%
-import json
+# # %%
+# import json
 
-fp = "/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced/switzerland_balanced.jsonl"
-fp = "/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced_reanchors/switzerland_reanchors.jsonl"
-with open(fp, "r") as f:
-    for line in f:
-        record = json.loads(line)
-        if record["status"] == "SUCCESS":
-            print(record["reward_ds1"])
-            print("byrow")
-            for i in record["reward_ds1"]:
-                print(i)
-            break
+# fp = "/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced/switzerland_balanced.jsonl"
+# fp = "/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced_reanchors/switzerland_reanchors.jsonl"
+# with open(fp, "r") as f:
+#     for line in f:
+#         record = json.loads(line)
+#         if record["status"] == "SUCCESS":
+#             print(record["reward_ds1"])
+#             print("byrow")
+#             for i in record["reward_ds1"]:
+#                 print(i)
+#             break
 
-# %%
+# # %%

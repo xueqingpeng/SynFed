@@ -4,6 +4,7 @@ score_anchors/
 syned_datasets/
 outputs/
 *.save/
+*.json
 
 # Environments
 .env

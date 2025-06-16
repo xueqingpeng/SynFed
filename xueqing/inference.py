@@ -57,7 +57,7 @@ def calculate_mcc(results):
     return mcc
 
 
-model_names = [
+model_paths = [
     # "TheFinAI/fl-cleveland-sft-1-adapter",
     # "TheFinAI/fl-hungarian-sft-1-adapter",
     # "TheFinAI/fl-switzerland-sft-1-adapter",
@@ -66,20 +66,26 @@ model_names = [
     # "TheFinAI/fl-hungarian-sft-2-adapter",
     # "TheFinAI/fl-switzerland-sft-2-adapter"
 ]
+data_paths = {
+    "cleveland": "TheFinAI/MED_SYN0_CLEVELAND_test",
+    "hungarian": "TheFinAI/MED_SYN0_HUNGARIAN_test",
+    "switzerland": "TheFinAI/MED_SYN0_SWITZERLAND_test",
+}
 mccs = []
-for model_name in model_names:
-    pipe = load_model(model_name)
+for model_path in model_paths:
+    for data_name, data_path in data_paths.items():
+        pipe = load_model(model_path)
 
-    # Load the Switzerland train dataset
-    switzerland_dataset = load_dataset("TheFinAI/MED_SYN0_SWITZERLAND_test")
-    train_data = switzerland_dataset["train"]
+        # Load the train data
+        dataset = load_dataset(data_path)
+        train_data = dataset["train"]
 
-    # Evaluate on Switzerland train data
-    results_switzerland = run_evaluation(train_data, prompt_key="query", gold_key="answer", pipe=pipe)
-    with open("results_switzerland.json", "w") as f:
-        json.dump(results_switzerland, f)
-    mcc_switzerland = calculate_mcc(results_switzerland)
-    print(f"MCC for Switzerland test: {mcc_switzerland:.4f}")
+        # Evaluate on train data
+        results = run_evaluation(train_data, prompt_key="query", gold_key="answer", pipe=pipe)
+        with open(f"train_results_{data_name}.json", "w") as f:
+            json.dump(results, f)
+        mcc = calculate_mcc(results)
+        print(f"MCC for {data_name} test: {mcc:.4f}")
     
 
     # anchors

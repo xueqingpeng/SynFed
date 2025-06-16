@@ -5,7 +5,11 @@ round="syn1"
 
 # Define dataset names (modify this list as needed)
 # ds_names=("cleveland" "hungarian" "switzerland" "va" "switzerland_healthy" "va_healthy")
-ds_names=("cleveland" "hungarian" "switzerland")
+ds_names=(
+    "cleveland" 
+    "hungarian" 
+    "switzerland"
+)
 
 # Define input and output paths
 input_path="syned_datasets/${round}_raw_balanced_reanchors"

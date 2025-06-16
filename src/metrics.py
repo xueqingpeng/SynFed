@@ -4,14 +4,14 @@ from sklearn.metrics import (accuracy_score, explained_variance_score,
                              mean_absolute_percentage_error,
                              mean_squared_error, median_absolute_error,
                              precision_score, r2_score, recall_score,
-                             roc_auc_score)
+                             roc_auc_score, matthews_corrcoef)
 
 from src.logger import get_logger
 
 logger = get_logger(__name__)
 
 
-TASK_ONE = {"classification": "F1 Score (macro)",
+TASK_ONE = {"classification": "Matthews Correlation Coefficient (MCC)",
             "regression": "Mean Squared Error"}
 
 
@@ -49,7 +49,7 @@ class BaseScorer:
         metric_name = TASK_ONE[self.task_type]
         score = self.metrics[metric_name](y_true, y_pred)
         # Normalize the score
-        score = self.normalize_score(score)
+        # score = self.normalize_score(score)
         return score
 
     def preprocess_pred(self, y_true, y_pred):
@@ -70,6 +70,7 @@ class ClassificationScorer(BaseScorer):
             'Recall (macro)': lambda y_true, y_pred: recall_score(y_true, y_pred, average='macro'),
             'F1 Score (macro)': lambda y_true, y_pred: f1_score(y_true, y_pred, average='macro'),
             # 'ROC AUC': lambda y_true, y_pred_proba: roc_auc_score(y_true, y_pred_proba, multi_class='ovr', average='macro')
+            'Matthews Correlation Coefficient (MCC)': lambda y_true, y_pred: matthews_corrcoef(y_true, y_pred)
         }
 
         self.task_type = "classification"
