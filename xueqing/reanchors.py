@@ -39,11 +39,11 @@ def extract_first_sample(text: str) -> str:
     return matches[0].strip() if matches else None
 
 
-def reanchor_data(data_name: str):
-    reanchors = get_reanchors(results_fp=f"results_{data_name}.json")
+def reanchor_data(data_name: str, round: str):
+    reanchors = get_reanchors(results_fp=f"train_results_{data_name}.json")
     reward_ds0 = [{"question": reanchor["prompt"], "gold": reanchor["gold"]} for reanchor in reanchors]
-    input_fp = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced/{data_name}_balanced.jsonl"
-    output_fp = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced_reanchors/{data_name}_reanchors.jsonl"
+    input_fp = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_raw_balanced/{data_name}_balanced.jsonl"
+    output_fp = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_raw_balanced_reanchors/{data_name}_reanchors.jsonl"
 
     modified_records = []
     with open(input_fp, "r") as f:
@@ -63,14 +63,15 @@ def reanchor_data(data_name: str):
     print(f"Modified JSONL saved to: {output_fp}")
 
 
-os.makedirs("/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced_reanchors", exist_ok=True)
+round="syn2"
+os.makedirs(f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_raw_balanced_reanchors", exist_ok=True)
 data_names = [
     "cleveland", 
     "hungarian", 
     "switzerland"
 ]
 for data_name in data_names:
-    reanchor_data(data_name)
+    reanchor_data(data_name, round)
 
 
 

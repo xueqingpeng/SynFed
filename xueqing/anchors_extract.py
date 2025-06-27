@@ -45,13 +45,17 @@ def print_test_data(test_few_shot: list[dict], test_zero_shot: list[dict]):
 
 # Prepare test data
 data_names = ["cleveland", "hungarian", "switzerland"]
-dir = "/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced"
+dir = "/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/syn1_raw_balanced_reanchors"
 test_few_shot_all = {}
 test_zero_shot_all = {}
 for data_name in data_names:
     print(f"Processing data: {data_name}")
-    record = load_success_record(dir, f"{data_name}_balanced.jsonl")
+    record = load_success_record(dir, f"{data_name}_reanchors.jsonl")
     test_few_shot, test_zero_shot = gen_test_data(record)
     print_test_data(test_few_shot,test_zero_shot)
     test_few_shot_all[data_name] = test_few_shot
     test_zero_shot_all[data_name] = test_zero_shot
+
+    # Save zero-shot data as json
+    with open(f"{data_name}_anchors.json", "w") as f:
+        json.dump(test_zero_shot, f, indent=2)

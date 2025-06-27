@@ -5,6 +5,7 @@ syned_datasets/
 outputs/
 *.save/
 *.json
+*.png
 
 # Environments
 .env

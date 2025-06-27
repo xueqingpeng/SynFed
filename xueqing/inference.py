@@ -58,31 +58,40 @@ def calculate_mcc(results):
 
 
 model_paths = [
+    # "TheFinAI/fl-cleveland-sft-0",
     # "TheFinAI/fl-cleveland-sft-1-adapter",
     # "TheFinAI/fl-hungarian-sft-1-adapter",
     # "TheFinAI/fl-switzerland-sft-1-adapter",
     "TheFinAI/fl-magnitude_prune-1-sft-merged-base-62",
-    # "TheFinAI/fl-dare_linear-1-sft-merged-base-62",
-    # "TheFinAI/fl-hungarian-sft-2-adapter",
-    # "TheFinAI/fl-switzerland-sft-2-adapter"
+    "TheFinAI/fl-cleveland-sft-1-adapter",
+    "TheFinAI/fl-hungarian-sft-1-adapter",
+    "TheFinAI/fl-switzerland-sft-1-adapter"
 ]
 data_paths = {
     "cleveland": "TheFinAI/MED_SYN0_CLEVELAND_test",
     "hungarian": "TheFinAI/MED_SYN0_HUNGARIAN_test",
     "switzerland": "TheFinAI/MED_SYN0_SWITZERLAND_test",
 }
+data_paths = {
+    "cleveland": "cleveland_anchors.json",
+    "hungarian": "hungarian_anchors.json",
+    "switzerland": "switzerland_anchors.json",
+}
 mccs = []
 for model_path in model_paths:
+    print(f"Evaluating {model_path}")
+    pipe = load_model(model_path)
     for data_name, data_path in data_paths.items():
-        pipe = load_model(model_path)
-
-        # Load the train data
-        dataset = load_dataset(data_path)
-        train_data = dataset["train"]
+        print(f"Evaluating {data_name}")
+        # dataset = load_dataset(data_path)
+        # train_data = dataset["train"]
+        anchors = json.load(open(data_path))
 
         # Evaluate on train data
-        results = run_evaluation(train_data, prompt_key="query", gold_key="answer", pipe=pipe)
-        with open(f"train_results_{data_name}.json", "w") as f:
+        # results = run_evaluation(train_data, prompt_key="query", gold_key="answer", pipe=pipe)
+        results = run_evaluation(anchors, prompt_key="question", gold_key="gold", pipe=pipe)
+        # with open(f"train_results_{data_name}.json", "w") as f:
+        with open(f"anchors_results_{data_name}.json", "w") as f:
             json.dump(results, f)
         mcc = calculate_mcc(results)
         print(f"MCC for {data_name} test: {mcc:.4f}")
