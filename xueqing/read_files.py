@@ -44,35 +44,23 @@ def main():
         # draw_histogram(gain_scores, png_fp)
 
         # Filter out scores
-        df = pd.DataFrame(list(data))[["status", "gain_score", "status_score"]]
-
+        df = pd.DataFrame(list(data))[["syn_pmt_id", "status", "gain_score", "status_score"]]
         df_success = df[df["status"] == "SUCCESS"]
-        print("100% quantile:", df_success["gain_score"].quantile(1.0))
-        print("80% quantile:", df_success["gain_score"].quantile(0.8))
-        print("20% quantile:", df_success["gain_score"].quantile(0.2))
-        print("0% quantile:", df_success["gain_score"].quantile(0.0))
-        
-        df_top = df_success.nlargest(int(len(df_success) * 0.2), 'gain_score')
-        df_bottom = df_success.nsmallest(int(len(df_success) * 0.2), 'gain_score')
-        print(f"Top 20% gain scores range: {df_top['gain_score'].min()} - {df_top['gain_score'].max()}. ({len(df_top)}/{len(df_success)} rows selected.)")
-        print(f"Bottom 20% gain scores range: {df_bottom['gain_score'].min()} - {df_bottom['gain_score'].max()}. ({len(df_bottom)}/{len(df_success)} rows selected.)")
-        df_positive = df_success[df_success['gain_score'] > 0]
-        df_negative = df_success[df_success['gain_score'] < 0]
-        print(f"Positive gain scores range: {df_positive['gain_score'].min()} - {df_positive['gain_score'].max()}. ({len(df_positive)}/{len(df_success)} rows selected.)")
-        print(f"Negative gain scores range: {df_negative['gain_score'].min()} - {df_negative['gain_score'].max()}. ({len(df_negative)}/{len(df_success)} rows selected.)")
 
+        df_success_grouped = df_success.groupby("syn_pmt_id")
+        df_success_grouped_top = df_success_grouped.apply(lambda x: x.nlargest(int(len(x) * 0.2), 'gain_score'))
+        df_success_grouped_bottom = df_success_grouped.apply(lambda x: x.nsmallest(int(len(x) * 0.2), 'gain_score'))
+        print(f"Top 20% gain scores range: {df_success_grouped_top['gain_score'].min()} - {df_success_grouped_top['gain_score'].max()}. ({len(df_success_grouped_top)}/{len(df_success)} rows selected.)")
+        print(f"Bottom 20% gain scores range: {df_success_grouped_bottom['gain_score'].min()} - {df_success_grouped_bottom['gain_score'].max()}. ({len(df_success_grouped_bottom)}/{len(df_success)} rows selected.)")
+        
         fp_sft = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_sft_fed/{data_name}_client_0.train.jsonl"
         fp_sft_top = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_sft_fed/{data_name}_client_0_top_20.train.jsonl"
         fp_sft_bottom = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_sft_fed/{data_name}_client_0_bottom_20.train.jsonl"
-        fp_sft_positive = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_sft_fed/{data_name}_client_0_positive.train.jsonl"
-        fp_sft_negative = f"/gpfs/radev/home/xp83/Documents/project/scripts/SynFed/syned_datasets/{round}_sft_fed/{data_name}_client_0_negative.train.jsonl"
 
         data_sft = read_jsonl_files(fp_sft)
         df_sft = pd.DataFrame(list(data_sft))
-        df_sft.iloc[df_top.index,:].to_json(fp_sft_top, orient="records", lines=True)
-        df_sft.iloc[df_bottom.index,:].to_json(fp_sft_bottom, orient="records", lines=True)
-        df_sft.iloc[df_positive.index,:].to_json(fp_sft_positive, orient="records", lines=True)
-        df_sft.iloc[df_negative.index,:].to_json(fp_sft_negative, orient="records", lines=True)
+        df_sft.iloc[df_success_grouped_top.index.get_level_values(1),:].to_json(fp_sft_top, orient="records", lines=True)
+        df_sft.iloc[df_success_grouped_bottom.index.get_level_values(1),:].to_json(fp_sft_bottom, orient="records", lines=True)
 
         print(f"Done {data_name}!")
 
@@ -117,4 +105,25 @@ if __name__ == "__main__":
 # Bottom 20% gain scores range: -0.31915137944246474 - 0.2581988897471611. (169/847 rows selected.)
 # Positive gain scores range: 0.2581988897471611 - 0.8355491589367869. (684/847 rows selected.)
 # Negative gain scores range: -0.31915137944246474 - -0.1197655832620661. (46/847 rows selected.)
+# Done switzerland!
+
+
+
+
+
+
+
+
+
+# Processing cleveland...
+# Top 20% gain scores range: -0.2581988897471611 - 0.5163977794943223. (1124/6078 rows selected.)
+# Bottom 20% gain scores range: -0.8355491589367869 - -0.2581988897471611. (1124/6078 rows selected.)
+# Done cleveland!
+# Processing hungarian...
+# Top 20% gain scores range: -0.31915137944246474 - 0.19724640005185756. (39/404 rows selected.)
+# Bottom 20% gain scores range: -0.8355491589367869 - -0.31915137944246474. (39/404 rows selected.)
+# Done hungarian!
+# Processing switzerland...
+# Top 20% gain scores range: 0.2581988897471611 - 0.8355491589367869. (131/847 rows selected.)
+# Bottom 20% gain scores range: -0.31915137944246474 - 0.2581988897471611. (131/847 rows selected.)
 # Done switzerland!
