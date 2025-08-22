@@ -8,3 +8,18 @@ python scoring/bootstrapping.py \
     --token $HF_TOKEN \
     --private
     
+python scoring/bootstrapping.py \
+    --dataset "TheFinAI/MED_SYN1_HUNGARIAN_train" \
+    --n_samples 5 \
+    --sample_size 100 \
+    --seed 42 \
+    --token $HF_TOKEN \
+    --private
+
+python scoring/bootstrapping.py \
+    --dataset "TheFinAI/MED_SYN1_SWITZERLAND_train" \
+    --n_samples 5 \
+    --sample_size 100 \
+    --seed 42 \
+    --token $HF_TOKEN \
+    --private
